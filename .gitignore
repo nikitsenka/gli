@@ -1,0 +1,15 @@
+/bin
+.envrc
+/dist
+/site
+.github/**/node_modules
+/CHANGELOG.md
+
+# VS Code
+.vscode
+
+# Idea
+.idea
+
+# macOS
+.DS_Store
