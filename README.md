@@ -15,3 +15,7 @@ make
 ```
 goreleaser
 ```
+
+### Demo
+
+![](demo.gif)
