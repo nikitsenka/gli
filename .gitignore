@@ -4,6 +4,7 @@
 /site
 .github/**/node_modules
 /CHANGELOG.md
+.goreleaser.yml
 
 # VS Code
 .vscode
