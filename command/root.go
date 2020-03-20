@@ -60,10 +60,7 @@ var emails = &cobra.Command{
 }
 
 func userInfo(cmd *cobra.Command, args []string) {
-	token := viper.GetString("token")
-	if token == "" {
-		log.Fatal("Token not found. Please login.")
-	}
+	token := getToken()
 	response, err := http.Get("https://www.googleapis.com/oauth2/v2/userinfo?access_token=" + token)
 	if err != nil {
 		log.Fatal(err)
@@ -81,10 +78,7 @@ func userInfo(cmd *cobra.Command, args []string) {
 }
 
 func userEmails(cmd *cobra.Command, args []string) {
-	token := viper.GetString("token")
-	if token == "" {
-		log.Fatal("Token not found. Please login.")
-	}
+	token := getToken()
 	userID := viper.GetString("id")
 	if userID == "" {
 		log.Fatal("User id not provided. Please get user info first.")
@@ -96,11 +90,12 @@ func userEmails(cmd *cobra.Command, args []string) {
 	defer response.Body.Close()
 	bytes, _ := ioutil.ReadAll(response.Body)
 	fmt.Printf("%v\n", string(bytes))
-	var user map[string]interface{}
-	err = json.Unmarshal(bytes, &user)
-	if err != nil {
-		log.Fatal(err)
+}
+
+func getToken() string {
+	token := viper.GetString("token")
+	if token == "" {
+		log.Fatal("Token not found. Please login.")
 	}
-	viper.Set("id", user["id"])
-	viper.WriteConfig()
+	return token
 }
